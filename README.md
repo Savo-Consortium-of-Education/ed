@@ -123,3 +123,6 @@ Järjestelmä on suunniteltu laajennettavaksi. Tulevaisuuden ominaisuuksia:
 ## Tuki ja kehitys
 
 Jos sinulla on kysymyksiä tai ehdotuksia, ota yhteyttä projektiin.
+
+## Terveys
+Buenas Tardes!
