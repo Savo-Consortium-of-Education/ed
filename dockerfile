@@ -1,3 +1,11 @@
+FROM node:22-alpine AS assets
+
+WORKDIR /app
+COPY package*.json tailwind.config.js ./
+RUN npm ci --no-audit --no-fund
+COPY src/ ./src/
+RUN npm run build:css
+
 FROM php:8.2-apache
 
 # Enable mod_rewrite for URL rewriting
@@ -11,6 +19,7 @@ WORKDIR /var/www/html
 
 # Copy source code
 COPY src/ /var/www/html/
+COPY --from=assets /app/src/assets/tailwind.css /var/www/html/assets/tailwind.css
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
