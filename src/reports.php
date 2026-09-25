@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'auth.php';
+require_login();
 
 // Profitability
 $stmt = $pdo->query("SELECT SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as total_income, SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as total_expense FROM transactions");
@@ -29,6 +30,8 @@ for ($q = 1; $q <= 4; $q++) {
     <title>Raportit</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; padding: 5px 10px; background: #f0f0f0; }
         table { border-collapse: collapse; width: 100%; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -36,7 +39,17 @@ for ($q = 1; $q <= 4; $q++) {
 </head>
 <body>
     <h1>Raportit</h1>
-    <a href="index.php">Takaisin kotiin</a>
+    <nav>
+        <a href="index.php">Koti</a>
+        <a href="add_transaction.php">Lisää tapahtuma</a>
+        <a href="reports.php">Raportit</a>
+        <a href="tax_reports.php">Veroilmoitukset</a>
+        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+            <a href="users.php">Käyttäjät</a>
+        <?php endif; ?>
+        <a href="logout.php">Kirjaudu ulos</a>
+    </nav>
+    <p>Kirjautunut: <?php echo h($_SESSION['username']); ?> (<?php echo h($_SESSION['role']); ?>)</p>
 
     <h2>Yrityksen kannattavuus</h2>
     <p>Kokonais tulot: <?php echo number_format($total_income, 2); ?> €</p>

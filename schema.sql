@@ -1,5 +1,15 @@
 -- Database schema for small business financial management system
 
+-- Create users table for authentication and roles
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Create the transactions table
 CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -17,6 +27,11 @@ CREATE TABLE transactions (
 CREATE INDEX idx_date ON transactions(date);
 CREATE INDEX idx_type ON transactions(type);
 CREATE INDEX idx_category ON transactions(category);
+
+-- Insert default users (change passwords after first login)
+INSERT INTO users (username, password_hash, role, is_active) VALUES
+('admin', '$2y$10$KYBZJ4BJLsfYjZlMhoBEc.LFCbjUVy2KP0g7aTP0nmDoWs2WTRk7W', 'admin', 1),
+('user', '$2y$10$nSzaJpXgs.YmeNzP7KE1tuz2r1jvxZFNylOl4nAl0qq2OYhNlhlXC', 'user', 1);
 
 -- Insert sample data for testing
 INSERT INTO transactions (date, type, category, description, amount, vat_rate, vat_amount) VALUES

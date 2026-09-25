@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'auth.php';
+require_login();
 
 $message = '';
 
@@ -34,9 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <h1>Lisää tapahtuma</h1>
-    <a href="index.php">Takaisin kotiin</a>
-    <br><br>
-    <?php if ($message) echo "<p class='message'>$message</p>"; ?>
+    <nav>
+        <a href="index.php">Koti</a>
+        <a href="add_transaction.php">Lisää tapahtuma</a>
+        <a href="reports.php">Raportit</a>
+        <a href="tax_reports.php">Veroilmoitukset</a>
+        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+            <a href="users.php">Käyttäjät</a>
+        <?php endif; ?>
+        <a href="logout.php">Kirjaudu ulos</a>
+    </nav>
+    <p>Kirjautunut: <?php echo h($_SESSION['username']); ?> (<?php echo h($_SESSION['role']); ?>)</p>
+    <?php if ($message) echo "<p class='message'>" . h($message) . "</p>"; ?>
     <form method="post">
         <label>Päivämäärä:</label>
         <input type="date" name="date" required>

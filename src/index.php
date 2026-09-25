@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'auth.php';
+require_login();
 ?>
 <!DOCTYPE html>
 <html lang="fi">
@@ -22,7 +23,12 @@ require 'config.php';
         <a href="add_transaction.php">Lisää tapahtuma</a>
         <a href="reports.php">Raportit</a>
         <a href="tax_reports.php">Veroilmoitukset</a>
+        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+            <a href="users.php">Käyttäjät</a>
+        <?php endif; ?>
+        <a href="logout.php">Kirjaudu ulos</a>
     </nav>
+    <p>Kirjautunut: <?php echo h($_SESSION['username']); ?> (<?php echo h($_SESSION['role']); ?>)</p>
 
     <h2>Viimeisimmät tapahtumat</h2>
     <table>
@@ -38,10 +44,10 @@ require 'config.php';
         $stmt = $pdo->query("SELECT * FROM transactions ORDER BY date DESC LIMIT 10");
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
-            echo "<td>" . $row['date'] . "</td>";
-            echo "<td>" . ($row['type'] == 'income' ? 'Tulo' : 'Meno') . "</td>";
-            echo "<td>" . ucfirst(str_replace('_', ' ', $row['category'])) . "</td>";
-            echo "<td>" . $row['description'] . "</td>";
+            echo "<td>" . h($row['date']) . "</td>";
+            echo "<td>" . ($row['type'] === 'income' ? 'Tulo' : 'Meno') . "</td>";
+            echo "<td>" . h(ucfirst(str_replace('_', ' ', $row['category']))) . "</td>";
+            echo "<td>" . h($row['description']) . "</td>";
             echo "<td>" . number_format($row['amount'], 2) . " €</td>";
             echo "<td>" . number_format($row['vat_amount'], 2) . " €</td>";
             echo "</tr>";

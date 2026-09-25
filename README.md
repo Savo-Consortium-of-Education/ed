@@ -10,6 +10,10 @@ Yksinkertainen web-pohjainen taloushallintojärjestelmä pienyrityksille. Ohjelm
 - **Raportointi**: 
   - Kannattavuusraportti (kokonaistulot, menot, voittomarginaali)
   - Kvartaaliraportit (Q1-Q4)
+- **Autentikointi**:
+  - Kirjautuminen käyttäjätunnuksella ja salasanalla
+  - Roolit (ylläpitäjä/käyttäjä)
+  - Ylläpitäjän käyttäjähallinta
 - **Veroilmoitukset**: 
   - ALV-ilmoitus (maksettava ALV, vähennettävä ALV, saldo)
   - Veroilmoitus (verotettava tulo)
@@ -45,6 +49,14 @@ docker-compose up -d
 ### Kotisivu
 - Näyttää 10 viimeisimmät tapahtumat
 - Navigointivalikko muihin osioihin
+- Vaatii kirjautumisen
+
+### Kirjautuminen
+- Avaa sovellus ja kirjaudu sisään käyttäjätunnuksella/salasanalla
+- Oletuskäyttäjät ensimmäiseen käynnistykseen:
+  - `admin` / `admin123` (ylläpitäjä)
+  - `user` / `user123` (käyttäjä)
+- Vaihda oletussalasanat tuotantokäytössä
 
 ### Lisää tapahtuma
 - Päivämäärä: Valitse päivämäärä
@@ -93,9 +105,13 @@ Voit hallita tietokantaa phpMyAdminilla osoitteessa: `http://localhost:8081`
 └── src/
     ├── index.php           # Kotisivu
     ├── config.php          # Tietokantakonfiguraatio
+    ├── auth.php            # Sessio ja käyttöoikeuksien tarkistus
+    ├── login.php           # Kirjautuminen
+    ├── logout.php          # Uloskirjautuminen
     ├── add_transaction.php  # Tapahtumien lisääminen
     ├── reports.php         # Raportit
-    └── tax_reports.php     # Veroilmoitukset
+    ├── tax_reports.php     # Veroilmoitukset
+    └── users.php           # Käyttäjien hallinta (admin)
 ```
 
 ## Pysäyttäminen
@@ -108,7 +124,6 @@ docker-compose down
 ## Kehitys ja laajentaminen
 
 Järjestelmä on suunniteltu laajennettavaksi. Tulevaisuuden ominaisuuksia:
-- Käyttäjien hallinta ja kirjautuminen
 - Edistyneemmät raportit ja kaaviot
 - Pankki-integraatiot
 - PDF-vienti

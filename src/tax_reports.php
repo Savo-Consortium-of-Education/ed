@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'auth.php';
+require_login();
 
 $message = '';
 
@@ -55,12 +56,24 @@ $total_expense = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
     <title>Veroilmoitukset</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; padding: 5px 10px; background: #f0f0f0; }
         .export-btn { padding: 10px 15px; background: #2196F3; color: white; border: none; cursor: pointer; margin: 5px; }
     </style>
 </head>
 <body>
     <h1>Veroilmoitukset</h1>
-    <a href="index.php">Takaisin kotiin</a>
+    <nav>
+        <a href="index.php">Koti</a>
+        <a href="add_transaction.php">Lisää tapahtuma</a>
+        <a href="reports.php">Raportit</a>
+        <a href="tax_reports.php">Veroilmoitukset</a>
+        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+            <a href="users.php">Käyttäjät</a>
+        <?php endif; ?>
+        <a href="logout.php">Kirjaudu ulos</a>
+    </nav>
+    <p>Kirjautunut: <?php echo h($_SESSION['username']); ?> (<?php echo h($_SESSION['role']); ?>)</p>
 
     <h2>ALV-ilmoitus</h2>
     <p>ALV maksettava: <?php echo number_format($vat_payable, 2); ?> €</p>
