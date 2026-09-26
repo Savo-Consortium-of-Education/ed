@@ -41,6 +41,25 @@ docker compose up -d
 4. Odota, kunnes tietokanta on valmis (n. 10-15 sekuntia)
 5. Avaa selaimessa: `http://localhost:8080`
 
+### Tailwind-kehitys
+
+Käynnistä Tailwindin automaattinen seuranta `dev`-profiililla:
+
+```bash
+docker compose --profile dev up -d
+```
+
+`tailwind`-kontti seuraa `src/`-hakemiston PHP- ja CSS-tiedostoja ja kirjoittaa
+päivitetyn tyylitiedoston tiedostoon `src/assets/tailwind.css`. Apache-palvelu
+käyttää samaa hakemistoa bind mountina, joten selaimen päivittäminen näyttää
+uudet luokat ilman Node.js-asennusta isäntäkoneella.
+
+Pysäytä kehityskontit:
+
+```bash
+docker compose --profile dev down
+```
+
 ## Käyttö
 
 ### Kotisivu
@@ -124,3 +143,6 @@ Järjestelmä on suunniteltu laajennettavaksi. Tulevaisuuden ominaisuuksia:
 ## Tuki ja kehitys
 
 Jos sinulla on kysymyksiä tai ehdotuksia, ota yhteyttä projektiin.
+
+## Terveys
+Buenas Tardes!
