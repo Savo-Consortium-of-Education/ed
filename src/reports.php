@@ -1,12 +1,14 @@
 <?php
 require 'config.php';
 
+// Profitability
 $stmt = $pdo->query("SELECT SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as total_income, SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as total_expense FROM transactions");
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $total_income = $row['total_income'] ?? 0;
 $total_expense = $row['total_expense'] ?? 0;
 $profit = $total_income - $total_expense;
 
+// Quarterly reports
 $quarters = [];
 for ($q = 1; $q <= 4; $q++) {
     $start_month = ($q - 1) * 3 + 1;

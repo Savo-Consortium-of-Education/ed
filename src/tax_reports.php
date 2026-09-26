@@ -9,6 +9,7 @@ if (isset($_GET['export'])) {
     header('Content-Disposition: attachment; filename="' . $filename . '"');
 
     $output = fopen('php://output', 'w');
+    // CSV headers
     fputcsv($output, ['Päivämäärä', 'Tyyppi', 'Kategoria', 'Kuvaus', 'Summa', 'ALV-prosentti', 'ALV-summa']);
 
     $stmt = $pdo->query("SELECT * FROM transactions ORDER BY date");
@@ -28,11 +29,14 @@ if (isset($_GET['export'])) {
     exit;
 }
 
+// VAT summary
 $stmt = $pdo->query("SELECT SUM(vat_amount) as total_vat FROM transactions WHERE type='income'");
 $vat_payable = $stmt->fetch(PDO::FETCH_ASSOC)['total_vat'] ?? 0;
 $stmt = $pdo->query("SELECT SUM(vat_amount) as total_vat FROM transactions WHERE type='expense'");
 $vat_deductible = $stmt->fetch(PDO::FETCH_ASSOC)['total_vat'] ?? 0;
 $vat_balance = $vat_payable - $vat_deductible;
+
+// Tax summary
 $stmt = $pdo->query("SELECT SUM(amount) as total FROM transactions WHERE type='income'");
 $total_income = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
 $stmt = $pdo->query("SELECT SUM(amount) as total FROM transactions WHERE type='expense'");
