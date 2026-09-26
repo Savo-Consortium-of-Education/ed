@@ -6,7 +6,7 @@ RUN npm ci --no-audit --no-fund
 COPY src/ ./src/
 RUN npm run build:css
 
-FROM php:8.2-apache
+FROM php:8.5-apache
 
 # Enable mod_rewrite for URL rewriting
 RUN a2enmod rewrite

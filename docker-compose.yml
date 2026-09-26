@@ -12,7 +12,7 @@ services:
         condition: service_healthy
 
   db:
-    image: mysql:8.0
+    image: mariadb:11.4
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -24,13 +24,13 @@ services:
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -proot --silent"]
       interval: 5s
       timeout: 5s
       retries: 10
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:5.2
     restart: always
     ports:
       - "8081:80"
