@@ -4,16 +4,32 @@ require 'auth.php';
 
 require_login();
 
+$exportFiles = [
+    'vat' => 'alv_ilmoitus.csv',
+    'tax' => 'veroilmoitus.csv',
+];
+
 if (isset($_GET['export'])) {
     $type = $_GET['export'];
-    $filename = ($type == 'vat') ? 'alv_ilmoitus.csv' : 'veroilmoitus.csv';
+    if (!is_string($type) || !array_key_exists($type, $exportFiles)) {
+        http_response_code(400);
+        header('Content-Type: text/plain; charset=utf-8');
+        echo 'Virheellinen vientityyppi.';
+        exit;
+    }
+    $filename = $exportFiles[$type];
 
-    header('Content-Type: text/csv');
+    header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
 
     $output = fopen('php://output', 'w');
+    // UTF-8 BOM and ';' separator so Excel with Finnish locale opens the file correctly
+    fwrite($output, "\xEF\xBB\xBF");
     // CSV headers
-    fputcsv($output, ['Päivämäärä', 'Tyyppi', 'Kategoria', 'Kuvaus', 'Summa', 'ALV-prosentti', 'ALV-summa']);
+    fputcsv($output, ['Päivämäärä', 'Tyyppi', 'Kategoria', 'Kuvaus', 'Summa', 'ALV-prosentti', 'ALV-summa'], ';', escape: '');
+
+    // TODO: 'vat' and 'tax' exports currently output identical data (all transactions);
+    // only the filename differs. Each export should contain the data relevant to its report.
 
     $stmt = $pdo->query("SELECT * FROM transactions ORDER BY date");
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -25,7 +41,7 @@ if (isset($_GET['export'])) {
             $row['amount'],
             $row['vat_rate'],
             $row['vat_amount']
-        ]);
+        ], ';', escape: '');
     }
 
     fclose($output);
