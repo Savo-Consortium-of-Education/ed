@@ -5,12 +5,12 @@ Pienyrityksen taloushallinto: a small PHP + MariaDB bookkeeping app (transaction
 ## Stack
 - PHP 8.5 on Apache, plain PHP pages in `src/` (no framework), PDO for DB access
 - MariaDB 11.4, schema and seed data in `schema.sql` (loaded on first DB start)
-- Tailwind CSS 4: edit `src/assets/tailwind.input.css`, output is `src/assets/tailwind.css` (generated — don't hand-edit)
+- Tailwind CSS 4: edit `src/assets/tailwind.input.css`, output is `src/assets/tailwind.css` (generated, gitignored — don't hand-edit or commit)
 - Shared layout in `src/partials/header.php` and `src/partials/footer.php`
 - Project docs and UI text are in Finnish; keep user-facing text in Finnish
 
 ## Running
-- `docker compose up -d --build` → app at http://localhost:8080, phpMyAdmin at http://localhost:8081
+- `docker compose up -d --build` → app at http://localhost:8080, phpMyAdmin at http://localhost:8081 (the `css` service builds Tailwind once before `web` starts)
 - `docker compose --profile dev up -d` also starts the Tailwind watcher
 - `npm run build:css` rebuilds Tailwind once (needs Node on host)
 - Schema changes: `schema.sql` only runs on a fresh DB — `docker compose down -v` then up again

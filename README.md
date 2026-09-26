@@ -35,10 +35,12 @@ Yksinkertainen web-pohjainen taloushallintojärjestelmä pienyrityksille. Ohjelm
 2. Siirry projektin hakemistoon
 3. Käynnistä kontit:
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-4. Odota, kunnes tietokanta on valmis (n. 10-15 sekuntia)
+4. Odota, kunnes tietokanta on valmis (n. 10-15 sekuntia). Käynnistyksessä
+   `css`-kontti kääntää myös Tailwind-tyylit tiedostoon `src/assets/tailwind.css`
+   (vaatii ensimmäisellä kerralla internetyhteyden npm-pakettien lataamiseen).
 5. Avaa selaimessa: `http://localhost:8080`
 
 ### Tailwind-kehitys
@@ -53,6 +55,10 @@ docker compose --profile dev up -d
 päivitetyn tyylitiedoston tiedostoon `src/assets/tailwind.css`. Apache-palvelu
 käyttää samaa hakemistoa bind mountina, joten selaimen päivittäminen näyttää
 uudet luokat ilman Node.js-asennusta isäntäkoneella.
+
+`src/assets/tailwind.css` on generoitu tiedosto, eikä sitä tallenneta
+versionhallintaan (`.gitignore`). Muokkaa tyylejä tiedostossa
+`src/assets/tailwind.input.css` tai PHP-sivujen Tailwind-luokissa.
 
 Pysäytä kehityskontit:
 
