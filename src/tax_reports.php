@@ -23,8 +23,13 @@ if (isset($_GET['export'])) {
     header('Content-Disposition: attachment; filename="' . $filename . '"');
 
     $output = fopen('php://output', 'w');
+    // UTF-8 BOM and ';' separator so Excel with Finnish locale opens the file correctly
+    fwrite($output, "\xEF\xBB\xBF");
     // CSV headers
-    fputcsv($output, ['Päivämäärä', 'Tyyppi', 'Kategoria', 'Kuvaus', 'Summa', 'ALV-prosentti', 'ALV-summa'], escape: '');
+    fputcsv($output, ['Päivämäärä', 'Tyyppi', 'Kategoria', 'Kuvaus', 'Summa', 'ALV-prosentti', 'ALV-summa'], ';', escape: '');
+
+    // TODO: 'vat' and 'tax' exports currently output identical data (all transactions);
+    // only the filename differs. Each export should contain the data relevant to its report.
 
     $stmt = $pdo->query("SELECT * FROM transactions ORDER BY date");
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -36,7 +41,7 @@ if (isset($_GET['export'])) {
             $row['amount'],
             $row['vat_rate'],
             $row['vat_amount']
-        ], escape: '');
+        ], ';', escape: '');
     }
 
     fclose($output);
