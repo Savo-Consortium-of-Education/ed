@@ -117,12 +117,12 @@ require 'partials/header.php';
                                 <?php echo csrf_field(); ?>
                                 <input type="hidden" name="action" value="role">
                                 <input type="hidden" name="id" value="<?php echo (int)$u['id']; ?>">
-                                <select name="role" class="form-control py-1.5" aria-label="Rooli">
+                                <select name="role" class="form-control min-w-36 py-1.5" aria-label="Rooli">
                                     <?php foreach (ROLES as $value => $label): ?>
                                         <option value="<?php echo $value; ?>" <?php echo $u['role'] === $value ? 'selected' : ''; ?>><?php echo $label; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button type="submit" class="button-secondary py-1.5">Tallenna</button>
+                                <button type="submit" class="button-secondary shrink-0 py-1.5">Tallenna</button>
                             </form>
                         <?php endif; ?>
                     </td>
@@ -131,8 +131,8 @@ require 'partials/header.php';
                             <?php echo csrf_field(); ?>
                             <input type="hidden" name="action" value="password">
                             <input type="hidden" name="id" value="<?php echo (int)$u['id']; ?>">
-                            <input type="password" name="password" class="form-control py-1.5" minlength="8" autocomplete="new-password" aria-label="Uusi salasana" required>
-                            <button type="submit" class="button-secondary py-1.5">Vaihda</button>
+                            <input type="password" name="password" class="form-control min-w-40 py-1.5" minlength="8" autocomplete="new-password" aria-label="Uusi salasana" required>
+                            <button type="submit" class="button-secondary shrink-0 py-1.5">Vaihda</button>
                         </form>
                     </td>
                     <td class="whitespace-nowrap px-5 py-4 text-slate-600"><?php echo htmlspecialchars($u['created_at']); ?></td>
