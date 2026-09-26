@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+require 'auth.php';
+
+require_login();
 
 $summary = $pdo->query(
     "SELECT
@@ -24,7 +27,9 @@ require 'partials/header.php';
             <h1 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">Tervetuloa takaisin</h1>
             <p class="mt-2 max-w-2xl text-slate-500">Seuraa yrityksesi taloutta yhdestä selkeästä näkymästä.</p>
         </div>
-        <a href="add_transaction.php" class="button-primary">Lisää tapahtuma</a>
+        <?php if (can_write()): ?>
+            <a href="add_transaction.php" class="button-primary">Lisää tapahtuma</a>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -49,7 +54,9 @@ require 'partials/header.php';
             <h2 class="text-xl font-bold text-ink">Viimeisimmät tapahtumat</h2>
             <p class="mt-1 text-sm text-slate-500">Kymmenen viimeksi kirjattua tapahtumaa.</p>
         </div>
-        <a href="add_transaction.php" class="text-sm font-semibold text-brand hover:text-blue-700">Lisää uusi</a>
+        <?php if (can_write()): ?>
+            <a href="add_transaction.php" class="text-sm font-semibold text-brand hover:text-blue-700">Lisää uusi</a>
+        <?php endif; ?>
     </div>
     <?php if (!$transactions): ?>
         <p class="px-5 py-10 text-center text-slate-500">Tapahtumia ei ole vielä lisätty.</p>

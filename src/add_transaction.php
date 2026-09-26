@@ -1,9 +1,13 @@
 <?php
 require 'config.php';
+require 'auth.php';
+
+require_role(WRITE_ROLES);
 
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    verify_csrf();
     $date = $_POST['date'];
     $type = $_POST['type'];
     $category = $_POST['category'];
@@ -36,6 +40,7 @@ require 'partials/header.php';
     <?php endif; ?>
 
     <form method="post" class="surface p-5 sm:p-8">
+        <?php echo csrf_field(); ?>
         <div class="grid gap-5 sm:grid-cols-2">
             <div>
                 <label for="date" class="form-label">Päivämäärä</label>
