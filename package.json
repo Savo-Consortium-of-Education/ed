@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build:css": "tailwindcss -i ./src/assets/tailwind.input.css -o ./src/assets/tailwind.css --minify"
+    "build:css": "tailwindcss -i ./src/assets/tailwind.input.css -o ./src/assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./src/assets/tailwind.input.css -o ./src/assets/tailwind.css --watch"
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.3",
