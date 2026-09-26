@@ -8,6 +8,17 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      css:
+        condition: service_completed_successfully
+
+  # Builds src/assets/tailwind.css once on startup (the file is not in git)
+  css:
+    image: node:26-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - tailwind_node_modules:/app/node_modules
+    command: sh -c "npm ci --no-audit --no-fund && npm run build:css"
 
   tailwind:
     image: node:26-alpine
