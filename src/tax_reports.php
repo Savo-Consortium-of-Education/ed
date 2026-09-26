@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+require 'auth.php';
+
+require_login();
 
 if (isset($_GET['export'])) {
     $type = $_GET['export'];

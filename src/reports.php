@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+require 'auth.php';
+
+require_login();
 
 // Profitability
 $stmt = $pdo->query("SELECT SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as total_income, SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as total_expense FROM transactions");

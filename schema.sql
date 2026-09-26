@@ -13,6 +13,21 @@ CREATE TABLE transactions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create the users table for authentication
+-- Roles: admin (everything incl. user management), accountant (view + add transactions), viewer (read-only)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'accountant', 'viewer') NOT NULL DEFAULT 'viewer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Default admin user for development: username "admin", password "admin123"
+-- Change the password after first login (Vaihda salasana).
+INSERT INTO users (username, password_hash, role) VALUES
+('admin', '$2y$12$7DZUDGS2ANHTUTMWcjv0e.mbouXyrbw9OkkDTyGHwPrNaPaG1ltTK', 'admin');
+
 -- Create indexes for better query performance
 CREATE INDEX idx_date ON transactions(date);
 CREATE INDEX idx_type ON transactions(type);

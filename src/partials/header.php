@@ -1,6 +1,7 @@
 <?php
 $pageTitle = $pageTitle ?? 'Pienyrityksen taloushallinto';
 $activePage = $activePage ?? '';
+$navUser = function_exists('current_user') ? current_user() : null;
 ?>
 <!DOCTYPE html>
 <html lang="fi">
@@ -20,14 +21,19 @@ $activePage = $activePage ?? '';
                     <span class="block text-sm font-medium text-slate-500">Taloushallinto</span>
                 </span>
             </a>
+            <?php if ($navUser): ?>
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
             <nav aria-label="Päänavigaatio" class="flex flex-wrap gap-2">
                 <?php
-                $links = [
-                    'home' => ['index.php', 'Koti'],
-                    'add' => ['add_transaction.php', 'Lisää tapahtuma'],
-                    'reports' => ['reports.php', 'Raportit'],
-                    'tax' => ['tax_reports.php', 'Veroilmoitukset']
-                ];
+                $links = ['home' => ['index.php', 'Koti']];
+                if (can_write()) {
+                    $links['add'] = ['add_transaction.php', 'Lisää tapahtuma'];
+                }
+                $links['reports'] = ['reports.php', 'Raportit'];
+                $links['tax'] = ['tax_reports.php', 'Veroilmoitukset'];
+                if ($navUser['role'] === 'admin') {
+                    $links['users'] = ['users.php', 'Käyttäjät'];
+                }
                 foreach ($links as $key => [$href, $label]):
                     $classes = $activePage === $key
                         ? 'bg-brand text-white shadow-sm'
@@ -38,5 +44,17 @@ $activePage = $activePage ?? '';
                     </a>
                 <?php endforeach; ?>
             </nav>
+            <div class="flex items-center gap-3 border-border-subtle text-sm lg:border-l lg:pl-4">
+                <a href="password.php" class="text-slate-500 hover:text-ink" title="Vaihda salasana">
+                    <span class="font-semibold text-ink"><?php echo htmlspecialchars($navUser['username']); ?></span>
+                    (<?php echo htmlspecialchars(ROLES[$navUser['role']]); ?>)
+                </a>
+                <form method="post" action="logout.php">
+                    <?php echo csrf_field(); ?>
+                    <button type="submit" class="button-secondary py-1.5">Kirjaudu ulos</button>
+                </form>
+            </div>
+            </div>
+            <?php endif; ?>
         </header>
         <main>
