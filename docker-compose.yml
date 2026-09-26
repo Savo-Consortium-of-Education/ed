@@ -30,7 +30,7 @@ services:
       retries: 10
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2
+    image: phpmyadmin:5.2
     restart: always
     ports:
       - "8081:80"
