@@ -17,8 +17,9 @@ Yksinkertainen web-pohjainen taloushallintojärjestelmä pienyrityksille. Ohjelm
 
 ## Teknologia
 
-- **Backend**: PHP 8.2 (Apache)
-- **Tietokanta**: MySQL 8.0
+- **Backend**: PHP 8.5 (Apache)
+- **Tietokanta**: MariaDB 11.4
+- **Tietokannan hallinta**: phpMyAdmin 5.2
 - **Frontend**: HTML5, CSS3
 - **Konttienhallinta**: Docker Compose
 
@@ -34,7 +35,7 @@ Yksinkertainen web-pohjainen taloushallintojärjestelmä pienyrityksille. Ohjelm
 2. Siirry projektin hakemistoon
 3. Käynnistä kontit:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 4. Odota, kunnes tietokanta on valmis (n. 10-15 sekuntia)
@@ -86,7 +87,7 @@ Voit hallita tietokantaa phpMyAdminilla osoitteessa: `http://localhost:8081`
 
 ```
 ├── docker-compose.yml      # Docker-kokoonpano
-├── Dockerfile              # PHP-konttin määritys
+├── dockerfile              # PHP-konttin määritys
 ├── schema.sql              # Tietokannan rakenne
 ├── plan.md                 # Suunnitelma
 ├── README.md               # Tämä tiedosto
@@ -102,7 +103,7 @@ Voit hallita tietokantaa phpMyAdminilla osoitteessa: `http://localhost:8081`
 
 Pysäytä kontit:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## Kehitys ja laajentaminen
