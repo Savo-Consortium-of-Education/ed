@@ -12,7 +12,7 @@ $activePage = $activePage ?? '';
 </head>
 <body>
     <div class="page-shell">
-        <header class="mb-8 flex flex-col gap-6 border-b border-[#d7dbe8] pb-6 lg:flex-row lg:items-center lg:justify-between">
+        <header class="mb-8 flex flex-col gap-6 border-b border-border-subtle pb-6 lg:flex-row lg:items-center lg:justify-between">
             <a href="index.php" class="flex items-center gap-3">
                 <img src="assets/logo.svg" alt="" class="h-14 w-14 rounded-2xl">
                 <span>

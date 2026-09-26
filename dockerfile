@@ -1,7 +1,7 @@
 FROM node:22-alpine AS assets
 
 WORKDIR /app
-COPY package*.json tailwind.config.js ./
+COPY package*.json ./
 RUN npm ci --no-audit --no-fund
 COPY src/ ./src/
 RUN npm run build:css

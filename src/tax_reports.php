@@ -88,7 +88,7 @@ require 'partials/header.php';
             <dd class="mt-2 text-xl font-bold text-ink"><?php echo number_format($total_income - $total_expense, 2); ?> €</dd>
         </div>
     </dl>
-    <div class="mt-8 flex flex-wrap gap-3 border-t border-[#d7dbe8] pt-6">
+    <div class="mt-8 flex flex-wrap gap-3 border-t border-border-subtle pt-6">
         <a href="?export=vat" class="button-primary">Vie ALV-ilmoitus CSV:ään</a>
         <a href="?export=tax" class="button-secondary">Vie veroilmoitus CSV:ään</a>
     </div>

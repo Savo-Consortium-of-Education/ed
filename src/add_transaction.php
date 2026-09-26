@@ -70,7 +70,7 @@ require 'partials/header.php';
                 <input id="vat_rate" class="form-control" type="number" step="0.01" name="vat_rate" value="24">
             </div>
         </div>
-        <div class="mt-8 flex flex-wrap gap-3 border-t border-[#d7dbe8] pt-6">
+        <div class="mt-8 flex flex-wrap gap-3 border-t border-border-subtle pt-6">
             <button type="submit" class="button-primary">Tallenna tapahtuma</button>
             <a href="index.php" class="button-secondary">Peruuta</a>
         </div>

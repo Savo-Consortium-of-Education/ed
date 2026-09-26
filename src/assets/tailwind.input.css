@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2b3a67;
+  --color-brand: #2d6cdf;
+  --color-brand-light: #eef3ff;
+  --color-canvas: #f5f6fb;
+  --color-border-surface: #d1d7e0;
+  --color-border-subtle: #d7dbe8;
+  --color-border-soft: #e5e8ef;
+  --color-border-strong: #c4cddf;
+}
 
 @layer base {
   body {
@@ -14,11 +23,11 @@
   }
 
   .surface {
-    @apply rounded-2xl border border-[#d1d7e0] bg-white shadow-sm;
+    @apply rounded-2xl border border-border-surface bg-white shadow-sm;
   }
 
   .metric-card {
-    @apply rounded-2xl border border-[#d7dbe8] bg-brand-light p-5;
+    @apply rounded-2xl border border-border-subtle bg-brand-light p-5;
   }
 
   .button-primary {
@@ -26,7 +35,7 @@
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center rounded-xl border border-[#c4cddf] bg-white px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-brand-light focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-xl border border-border-strong bg-white px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-brand-light focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2;
   }
 
   .form-label {
@@ -34,6 +43,6 @@
   }
 
   .form-control {
-    @apply block w-full rounded-xl border border-[#c4cddf] bg-white px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-blue-100;
+    @apply block w-full rounded-xl border border-border-strong bg-white px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-blue-100;
   }
 }
