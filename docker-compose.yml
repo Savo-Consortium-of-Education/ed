@@ -38,7 +38,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
@@ -51,7 +51,7 @@ services:
     image: phpmyadmin:5.2
     restart: always
     ports:
-      - "8081:80"
+      - "8082:80"
     environment:
       PMA_HOST: db
       PMA_USER: root
