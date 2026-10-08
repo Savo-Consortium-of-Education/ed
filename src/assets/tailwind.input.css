@@ -45,4 +45,41 @@
   .form-control {
     @apply block w-full rounded-xl border border-border-strong bg-white px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-blue-100;
   }
+
+  .report-chart {
+    @apply block h-auto w-full;
+  }
+
+  .report-chart-grid {
+    stroke: #e5e8ef;
+    stroke-width: 1;
+  }
+
+  .report-chart-axis {
+    stroke: #c4cddf;
+    stroke-width: 2;
+  }
+
+  .report-chart-label,
+  .report-chart-quarter {
+    fill: #64748b;
+    font-size: 12px;
+  }
+
+  .report-chart-quarter {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .report-chart-income {
+    fill: #2d6cdf;
+  }
+
+  .report-chart-expense {
+    fill: #fbbf24;
+  }
+
+  .report-chart-profit {
+    fill: #10b981;
+  }
 }

@@ -9,7 +9,7 @@ Yksinkertainen web-pohjainen taloushallintojärjestelmä pienyrityksille. Ohjelm
 - **ALV-hallinta**: Automaattinen ALV-laskenta ja seuranta
 - **Raportointi**: 
   - Kannattavuusraportti (kokonaistulot, menot, voittomarginaali)
-  - Kvartaaliraportit (Q1-Q4)
+  - Kvartaaliraportit (Q1-Q4) taulukkona ja pylväsdiagrammina
 - **Veroilmoitukset**: 
   - ALV-ilmoitus (maksettava ALV, vähennettävä ALV, saldo)
   - Veroilmoitus (verotettava tulo)
@@ -86,7 +86,7 @@ docker compose --profile dev down
 
 ### Raportit
 - **Yrityksen kannattavuus**: Kokonaistulot, menot ja tulos
-- **Kvartaaliraportit**: Tulot ja menot neljännesvuosittain
+- **Kvartaaliraportit**: Tulot, menot ja tulos neljännesvuosittain taulukkona ja pylväsdiagrammina
 
 ### Veroilmoitukset
 - **ALV-ilmoitus**: ALV-tiedot ja summat
